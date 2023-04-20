@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-const getStories = (window) => {
+const getStories = async (window) => {
   const getStorybook =
     (window.__STORYBOOK_CLIENT_API__ && window.__STORYBOOK_CLIENT_API__.raw) ||
     (window.loki && window.loki.getStorybook);
@@ -27,6 +27,8 @@ const getStories = (window) => {
       return false;
     }
   };
+
+  await window.__STORYBOOK_CLIENT_API__.storyStore.cacheAllCSFFiles();
 
   return getStorybook()
     .map((component) => ({
